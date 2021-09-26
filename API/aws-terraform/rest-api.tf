@@ -1,4 +1,4 @@
-resource "aws_api_gateway_rest_api" "example" {
+resource "aws_api_gateway_rest_api" "atmster" {
   body = jsonencode({
     openapi = "3.0.1"
     info = {
@@ -12,7 +12,7 @@ resource "aws_api_gateway_rest_api" "example" {
             httpMethod           = "GET"
             payloadFormatVersion = "1.0"
             type                 = "HTTP_PROXY"
-            uri                  = "https://ip-ranges.amazonaws.com/ip-ranges.json"
+            uri                  = "https://atmster.com/comission"
           }
         }
       }
@@ -26,11 +26,11 @@ resource "aws_api_gateway_rest_api" "example" {
   }
 }
 
-resource "aws_api_gateway_deployment" "example" {
-  rest_api_id = aws_api_gateway_rest_api.example.id
+resource "aws_api_gateway_deployment" "atmster" {
+  rest_api_id = aws_api_gateway_rest_api.atmster.id
 
   triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.example.body))
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.atmster.body))
   }
 
   lifecycle {
