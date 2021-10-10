@@ -52,6 +52,12 @@ paths:
           required: false
           schema:
             type: string
+        - name: boundingbox
+          in: query
+          description:
+          required: false
+          schema:
+            $ref: '#/components/schemas/BoundingBox'
       responses:
         '200':
           description: List of ATMs that match passed criteria
@@ -127,6 +133,7 @@ components:
         - id
         - bic
         - name
+        - url
       properties:
         id:
           type: integer
@@ -135,6 +142,8 @@ components:
           type: string
         name:
           type: string
+        name:
+          type: url
     Location:
       type: object
       required:
@@ -147,6 +156,16 @@ components:
         lon:
           type: number
           format: float
+    BoundingBox:         
+      type: object
+      required:
+        - leftTop
+        - rightBottom
+      properties:
+        leftTop:
+          $ref: '#/components/schemas/Location'
+        rightBottom:
+          $ref: '#/components/schemas/Location'
     ATM:
       type: object
       required:
