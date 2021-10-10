@@ -65,6 +65,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+/bank:
+    get:
+      summary: 'Returns details about a bank by id or BIC'
+      operationId: getBank
+      tags:
+        - banks
+      parameters:
+        - name: id
+          in: query
+          description: internal numerical id of a bank
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: bic
+          in: query
+          description: BIC
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Details about bank with specified id or BIC
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bank'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Currency:
@@ -92,11 +125,14 @@ components:
       type: object
       required:
         - id
+        - bic
         - name
       properties:
         id:
           type: integer
           format: int64
+        bic:
+          type: string
         name:
           type: string
     Location:
