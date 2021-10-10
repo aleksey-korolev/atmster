@@ -188,8 +188,19 @@ components:
         active:
           type: boolean
         hoursOfWork:
+          $ref: '#/components/schemas/HoursOfWork'
+    HoursOfWork:
+      type: object
+      required:
+        - bod
+        - eod
+      properties:
+        bod:
           type: string
-          description: ToDo
+          description: beginning of working day
+        eod:
+          type: string
+          description: end of working day
     ArrayOfATMs:
       type: array
       items:
