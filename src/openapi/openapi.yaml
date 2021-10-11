@@ -55,7 +55,7 @@ paths:
         - name: boundingbox
           in: query
           description:
-          required: false
+          required: true
           schema:
             $ref: '#/components/schemas/BoundingBox'
       responses:
