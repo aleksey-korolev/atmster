@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: atmster
 servers:
-  - url: 'https://petstore.swagger.io/v1'
+  - url: 'https://da7f50c3-7a27-497c-80bb-4a9652cdc548.mock.pstmn.io'
 paths:
   /commission:
     get:
