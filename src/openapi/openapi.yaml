@@ -40,32 +40,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
    post:
-      summary: 'Adds cash withdrawal commission'
-      operationId: Commission
+      summary: 'Adds details about bank's cash withdrawal commission'
+      operationId: addCommission
       tags:
         - commission
       parameters:
-        - name: issuerBankId
+        - name: bankId
           in: query
-          description: ID of issuer bank. If not specified, then issuer comissions are not returned.
-          required: false
-          schema:
-            type: integer
-            format: int64
-        - name: atmBankId
-          in: query
-          description: ID of the bank ATM belongs to
+          description: ID of bank to add commission for.
           required: true
           schema:
             type: integer
             format: int64
       responses:
-        '200':
-          description: Commission for cash withdrawal
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Commission'
+        '201':
+          description: Added commission for cash withdrawal.
         default:
           description: Unexpected error
           content:
@@ -117,7 +106,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ATM'
       responses:
-        '200':
+        '201':
           description: Added ATM with id field populated.
           content:
             application/json:
@@ -188,7 +177,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bank'
       responses:
-        '200':
+        '201':
           description: Added Bank with id field populated.
           content:
             application/json:
