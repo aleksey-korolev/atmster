@@ -39,6 +39,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+   post:
+      summary: 'Adds cash withdrawal commission'
+      operationId: Commission
+      tags:
+        - commission
+      parameters:
+        - name: issuerBankId
+          in: query
+          description: ID of issuer bank. If not specified, then issuer comissions are not returned.
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: atmBankId
+          in: query
+          description: ID of the bank ATM belongs to
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Commission for cash withdrawal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Commission'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /atm:
     get:
       summary: 'Returns list of ATMs'
@@ -90,6 +123,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ATM'
+    put:
+      summary: 'Update ATM details'
+      operationId: updateATM
+      tags:
+        - atm
+      requestBody:
+        required: true
+        description: ATM to update.
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ATM'
+      responses:
+        '200':
+          description: Updated ATM.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ATM'
   /bank:
     get:
       summary: 'Returns details about a bank by id or BIC'
@@ -130,7 +182,7 @@ paths:
         - banks
       requestBody:
         required: true
-        description: Bank to add. Id field should be empty, it will be generated and returned in response.
+        description: Bank to add. Id field should be empty, it will be generated and returned as part of response.
         content:
             application/json:
               schema:
@@ -138,6 +190,25 @@ paths:
       responses:
         '200':
           description: Added Bank with id field populated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bank'
+    put:
+      summary: 'Update bank details'
+      operationId: updateBank
+      tags:
+        - banks
+      requestBody:
+        required: true
+        description: Bank to update.
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bank'
+      responses:
+        '200':
+          description: Updated Bank.
           content:
             application/json:
               schema:
@@ -180,6 +251,8 @@ components:
           type: string
         url:
           type: string
+        comission:
+          $ref: '#/components/schemas/Comission'
     Location:
       type: object
       required:
@@ -241,8 +314,6 @@ components:
         $ref: '#/components/schemas/ATM'
     Commission: 
       type: object
-      required:
-        - totalPercent
       properties:
         totalPercent:
           type: number
