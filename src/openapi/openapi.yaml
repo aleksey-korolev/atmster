@@ -40,7 +40,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
    post:
-      summary: 'Adds details about bank's cash withdrawal commission'
+      summary: 'Add details about bank's cash withdrawal commission'
       operationId: addCommission
       tags:
         - commission
@@ -55,6 +55,28 @@ paths:
       responses:
         '201':
           description: Added commission for cash withdrawal.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+   put:
+      summary: 'Update details about bank's cash withdrawal commission'
+      operationId: updateCommission
+      tags:
+        - commission
+      parameters:
+        - name: bankId
+          in: query
+          description: ID of bank to update commission for.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Updated commission for cash withdrawal.
         default:
           description: Unexpected error
           content:
